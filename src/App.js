@@ -10,6 +10,7 @@ class App extends Component {
   temperature: undefined,
   city: undefined,
   humidity: undefined,
+  pressure: undefined,
   description: undefined,
   error: undefined
 }
@@ -21,15 +22,17 @@ getWeather = async (e) => {
   const data = await api_call.json();
   if (city) {
     this.setState({
-      temperature: data.main.temp + "°C",
+      temperature: data.main.temp + " °C",
       city: data.name,
-      humidity: data.main.humidity + "%",
+      humidity: data.main.humidity + " %",
       description: data.weather[0].description,
+      pressure: data.main.pressure + " hPa",
+      wind: data.wind.speed + " m/s",
       error: ""
     });
   } else {
     this.setState({
-      error: "INSERT A CITY!"
+      error: "PLEASE INSERT A CITY!"
     });
   }
 }
@@ -37,7 +40,7 @@ getWeather = async (e) => {
 render() {
   return (
       <div className="wrapper">
-      <header> WEATHER.IO </header>
+      <header> <h1>WEATHER.IO</h1> </header>
 
               <div className="searchWeatherContainer">
                 <Form getWeather={this.getWeather}/>
@@ -50,6 +53,8 @@ render() {
                  humidity={this.state.humidity}
                  city={this.state.city}
                  description={this.state.description}
+                 pressure={this.state.pressure}
+                 wind={this.state.wind}
                  error={this.state.error} />
                  </div>
                </div>

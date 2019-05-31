@@ -40,7 +40,7 @@ class App extends Component {
     const city = e.target.elements.city.value;
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
     const data = await api_call.json();
-    if (city && city.length > 0 && data.weather[0]) {
+    if (city && city.length > 0 && data && data.weather && data.weather[0]) {
       this.saveCity(city);
       this.getHistory();
       let img = 'GIFs/sun.gif';
